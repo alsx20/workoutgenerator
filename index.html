@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Workout Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #020617;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #22c55e;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background: #16a34a;
+    }
+
+    .group {
+      margin-bottom: 16px;
+    }
+
+    .group h2 {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      background: #020617;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏋️ Random Workout Generator</h1>
+    <button onclick="generateWorkout()">Generate Workout</button>
+
+    <div class="group">
+      <h2>Push</h2>
+      <ul id="push"></ul>
+    </div>
+
+    <div class="group">
+      <h2>Pull</h2>
+      <ul id="pull"></ul>
+    </div>
+
+    <div class="group">
+      <h2>Legs</h2>
+      <ul id="legs"></ul>
+    </div>
+
+    <div class="group">
+      <h2>Shoulders / Arms</h2>
+      <ul id="shouldersArms"></ul>
+    </div>
+  </div>
+
+  <script>
+    const exercises = {
+      push: [
+        "Bench Press",
+        "Incline Dumbbell Press",
+        "Overhead Press",
+        "Push-Ups",
+        "Dips",
+        "Chest Flyes",
+        "Arnold Press",
+        "Tricep Pushdowns",
+        "Skull Crushers"
+      ],
+      pull: [
+        "Pull-Ups",
+        "Lat Pulldowns",
+        "Barbell Rows",
+        "Seated Cable Rows",
+        "Face Pulls",
+        "Deadlifts",
+        "Hammer Curls",
+        "Barbell Curls",
+        "Rear Delt Flyes"
+      ],
+      legs: [
+        "Back Squats",
+        "Front Squats",
+        "Leg Press",
+        "Romanian Deadlifts",
+        "Walking Lunges",
+        "Leg Curls",
+        "Leg Extensions",
+        "Calf Raises",
+        "Bulgarian Split Squats"
+      ],
+      shouldersArms: [
+        "Lateral Raises",
+        "Front Raises",
+        "Rear Delt Flyes",
+        "Barbell Shrugs",
+        "Upright Rows",
+        "Bicep Curls",
+        "Incline Dumbbell Curls",
+        "Tricep Dips",
+        "Overhead Tricep Extensions",
+        "Cable Pushdowns"
+      ]
+    };
+
+    function getRandomItems(array, count) {
+      const shuffled = [...array].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function renderList(id, items) {
+      const ul = document.getElementById(id);
+      ul.innerHTML = "";
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+    }
+
+    function generateWorkout() {
+      renderList("push", getRandomItems(exercises.push, 5));
+      renderList("pull", getRandomItems(exercises.pull, 5));
+      renderList("legs", getRandomItems(exercises.legs, 5));
+      renderList("shouldersArms", getRandomItems(exercises.shouldersArms, 5));
+    }
+
+    // Generate one on load
+    generateWorkout();
+  </script>
+</body>
+</html>
