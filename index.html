@@ -90,6 +90,26 @@
       <h2>Shoulders / Arms</h2>
       <ul id="shouldersArms"></ul>
     </div>
+
+    <div class="group">
+      <h2>Cardio Time For Today</h2>
+      <label for="cardioType">Type:</label>
+      <select id="cardioType">
+        <option>Stairs</option>
+        <option>Treadmill</option>
+      </select>
+
+      <label for="cardioMinutes" style="margin-left:12px">Minutes:</label>
+      <select id="cardioMinutes">
+        <option>10</option>
+        <option>15</option>
+        <option>20</option>
+      </select>
+
+      <button id="randomizeCardioBtn" onclick="randomizeCardio()" style="width:auto; display:inline-block; margin-left:12px; padding:6px 10px; background:#3b82f6; border-radius:6px; border:none; color:#fff; cursor:pointer;">Randomize Cardio</button>
+
+      <ul id="cardio"></ul>
+    </div>
   </div>
 
   <script>
@@ -156,11 +176,36 @@
       });
     }
 
+    function updateCardioDisplay() {
+      const type = document.getElementById('cardioType')?.value || 'Treadmill';
+      const minutes = document.getElementById('cardioMinutes')?.value || '10';
+      const cardioUl = document.getElementById('cardio');
+      if (cardioUl) {
+        cardioUl.innerHTML = '';
+        const li = document.createElement('li');
+        li.textContent = `${type} — ${minutes} minutes`;
+        cardioUl.appendChild(li);
+      }
+    }
+
+    function randomizeCardio() {
+      const types = ['Stairs', 'Treadmill'];
+      const minutesOptions = ['10', '15', '20'];
+      const randType = types[Math.floor(Math.random() * types.length)];
+      const randMinutes = minutesOptions[Math.floor(Math.random() * minutesOptions.length)];
+      const typeSelect = document.getElementById('cardioType');
+      const minutesSelect = document.getElementById('cardioMinutes');
+      if (typeSelect) typeSelect.value = randType;
+      if (minutesSelect) minutesSelect.value = randMinutes;
+      updateCardioDisplay();
+    }
+
     function generateWorkout() {
       renderList("push", getRandomItems(exercises.push, 5));
       renderList("pull", getRandomItems(exercises.pull, 5));
       renderList("legs", getRandomItems(exercises.legs, 5));
       renderList("shouldersArms", getRandomItems(exercises.shouldersArms, 5));
+      updateCardioDisplay();
     }
 
     // Generate one on load
